@@ -3,8 +3,15 @@ using CzechQrPayments.Helpers;
 
 namespace CzechQrPayments;
 
+/// <summary>
+/// Parses payment order strings typically found in QR codes.
+/// </summary>
 public static partial class ShortPaymentDescriptorParser
 {
+    /// <summary>
+    /// Parses a short payment descriptor (SPD) string into a <see cref="ShortPaymentDescriptor"/> object.
+    /// </summary>
+    /// <exception cref="FormatException">When input isn't a palid payment order</exception>
     public static ShortPaymentDescriptor Parse(string spdString)
     {
         // Make sure the string starts with 'SPD*1.0*'.

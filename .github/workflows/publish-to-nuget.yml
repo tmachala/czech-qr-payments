@@ -1,0 +1,28 @@
+name: Publish to NuGet
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  pack-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Pack (version from tag without v)
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+          dotnet pack -c Release -p:Version=$VERSION
+
+      - name: Publish
+        run: |
+          dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+          dotnet nuget push **/*.snupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}

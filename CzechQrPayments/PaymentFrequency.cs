@@ -1,5 +1,9 @@
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 namespace CzechQrPayments;
 
+/// <summary>
+/// The frequency at which the payment should be repeated.
+/// </summary>
 public enum PaymentFrequency
 {
     Unspecified = 0,

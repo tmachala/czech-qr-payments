@@ -1,5 +1,8 @@
 namespace CzechQrPayments;
 
+/// <summary>
+/// Represents a payment order typically found in QR codes.
+/// </summary>
 public class ShortPaymentDescriptor
 {
     /// <summary>
