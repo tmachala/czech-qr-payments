@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Net;
 
 namespace CzechQrPayments.Helpers;
 
@@ -82,5 +83,10 @@ internal static class Parsing
             "1" => true,
             _ => throw new FormatException($"Invalid boolean value: {str}")
         };
+    }
+
+    public static string ParseString(string str)
+    {
+        return WebUtility.UrlDecode(str);
     }
 }

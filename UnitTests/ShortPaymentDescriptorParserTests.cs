@@ -80,4 +80,44 @@ public class ShortPaymentDescriptorParserTests
         var input = "SCD*1.0*ACC:CZ3301000000000002970297*AM:555.55*CC:CZK*FRQ:1M*DT:20210430*DL:20260430*DH:0*MSG:PRAVIDELNY PRISPEVEK NA NADACI";
         Assert.Throws<NotSupportedException>(() => ShortPaymentDescriptorParser.Parse(input));
     }
+    
+    [Fact]
+    public void ShortPaymentDescriptorParser_CanParseColonInAttrValue()
+    {
+        var input = "SPD*1.0*ACC:CZ3301000000000002970297*MSG:foo:bar";
+        
+        var result = ShortPaymentDescriptorParser.Parse(input);
+        
+        Assert.Equal("foo:bar", result.Message);
+    }
+    
+    [Fact]
+    public void ShortPaymentDescriptorParser_CanParseUrlEncodedStrings()
+    {
+        var input = "SPD*1.0*ACC:CZ3301000000000002970297*MSG:%2A%20P%C5%99%C3%ADli%C5%A1%20%C5%BElu%C5%A5ou%C4%8Dk%C3%BD%20k%C5%AF%C5%88%20%C3%BAp%C4%9Bl%20%C4%8F%C3%A1belsk%C3%A9%20%C3%B3dy%20%2A";
+        
+        var result = ShortPaymentDescriptorParser.Parse(input);
+        
+        Assert.Equal("* Příliš žluťoučký kůň úpěl ďábelské ódy *", result.Message);
+    }
+    
+    [Fact]
+    public void ShortPaymentDescriptorParser_CanParseNonAsciiStrings()
+    {
+        var input = "SPD*1.0*ACC:CZ3301000000000002970297*MSG:Příliš žluťoučký kůň úpěl ďábelské ódy";
+        
+        var result = ShortPaymentDescriptorParser.Parse(input);
+        
+        Assert.Equal("Příliš žluťoučký kůň úpěl ďábelské ódy", result.Message);
+    }
+    
+    [Fact]
+    public void ShortPaymentDescriptorParser_CanParseMixedNonAsciiAndUrlEncodedStrings()
+    {
+        var input = "SPD*1.0*ACC:CZ3301000000000002970297*MSG:%2A Příliš žluťoučký kůň úpěl ďábelské ódy %2A";
+        
+        var result = ShortPaymentDescriptorParser.Parse(input);
+        
+        Assert.Equal("* Příliš žluťoučký kůň úpěl ďábelské ódy *", result.Message);
+    }
 }

@@ -1,4 +1,3 @@
-using System.Globalization;
 using System.Text.RegularExpressions;
 using CzechQrPayments.Helpers;
 
@@ -56,7 +55,7 @@ public static partial class ShortPaymentDescriptorParser
         
         if (attrs.TryGetValue("RN", out var rn))
         {
-            descriptor.CreditorName = rn;
+            descriptor.CreditorName = Parsing.ParseString(rn);
         }
         
         if (attrs.TryGetValue("DT", out var dt))
@@ -71,7 +70,7 @@ public static partial class ShortPaymentDescriptorParser
         
         if (attrs.TryGetValue("MSG", out var msg))
         {
-            descriptor.Message = msg;
+            descriptor.Message = Parsing.ParseString(msg);
         }
         
         if (attrs.TryGetValue("NT", out var nt))
@@ -81,7 +80,7 @@ public static partial class ShortPaymentDescriptorParser
         
         if (attrs.TryGetValue("NTA", out var nta))
         {
-            descriptor.NotificationAddress = nta;
+            descriptor.NotificationAddress = Parsing.ParseString(nta);
         }
         
         if (attrs.TryGetValue("DL", out var dl))
@@ -121,17 +120,17 @@ public static partial class ShortPaymentDescriptorParser
         
         if (attrs.TryGetValue("X-ID", out var xid))
         {
-            descriptor.PayerInternalPaymentIdentifier = xid;
+            descriptor.PayerInternalPaymentIdentifier = Parsing.ParseString(xid);
         }
         
         if (attrs.TryGetValue("X-URL", out var xurl))
         {
-            descriptor.Url = xurl;
+            descriptor.Url = Parsing.ParseString(xurl);
         }
         
         if (attrs.TryGetValue("X-SELF", out var xself))
         {
-            descriptor.NoteToSelf = xself;
+            descriptor.NoteToSelf = Parsing.ParseString(xself);
         }
 
         return descriptor;

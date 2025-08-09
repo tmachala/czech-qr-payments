@@ -149,4 +149,15 @@ public class ParsingTests
     {
         Assert.Throws<FormatException>(() => Parsing.ParseBoolean(input));
     }
+
+    [Theory]
+    [InlineData("test", "test")]
+    [InlineData("hello%20world", "hello world")]
+    [InlineData("příliš%20žluťoučký%20kůň", "příliš žluťoučký kůň")]
+    [InlineData("příliš žluťoučký kůň", "příliš žluťoučký kůň")]
+    public void ParseString_ValidInput_ReturnsString(string input, string expected)
+    {
+        var result = Parsing.ParseString(input);
+        Assert.Equal(expected, result);
+    }
 }
