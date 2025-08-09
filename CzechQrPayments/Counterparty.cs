@@ -1,5 +1,8 @@
 ﻿namespace CzechQrPayments;
 
+/// <summary>
+/// Represents a payment recipient.
+/// </summary>
 public class Counterparty
 {
     /// <summary>

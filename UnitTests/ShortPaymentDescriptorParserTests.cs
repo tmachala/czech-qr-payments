@@ -21,7 +21,7 @@ public class ShortPaymentDescriptorParserTests
         Assert.Equal("PRISPEVEK NA NADACI", result.Message);
         Assert.Equal(NotificationType.Unspecified, NotificationType.Unspecified);
         Assert.Null(result.StandingOrderExpiryDate);
-        Assert.Null(result.PaymentFrequency);
+        Assert.Equal(PaymentFrequency.Unspecified, result.PaymentFrequency);
         Assert.Null(result.KeepExecutingAfterDeath);
         Assert.Null(result.RetryCountLimit);
         Assert.Equal("0987654321", result.VariableSymbol);

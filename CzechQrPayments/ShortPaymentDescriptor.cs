@@ -101,7 +101,7 @@ public class ShortPaymentDescriptor
     /// limit (AM field).
     /// </summary>
     /// <remarks>Field name: FRQ</remarks>
-    public PaymentFrequency? PaymentFrequency { get; set; }
+    public PaymentFrequency PaymentFrequency { get; set; }
 
     /// <summary>
     /// Whether to execute the standing order or payments based on the established direct debit
