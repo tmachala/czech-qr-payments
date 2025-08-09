@@ -26,7 +26,7 @@ public class ParsingTests
     [InlineData("EUR")]
     public void ParseCurrency_ValidInput_ReturnsString(string input)
     {
-        var result = Parsing.ParseCurrency(input);
+        var result = Parsing.ParseCurrencyCode(input);
         Assert.Equal(input, result);
     }
 
@@ -35,7 +35,7 @@ public class ParsingTests
     [InlineData("EURO")]
     public void ParseCurrency_InvalidInput_ThrowsFormatException(string input)
     {
-        Assert.Throws<FormatException>(() => Parsing.ParseCurrency(input));
+        Assert.Throws<FormatException>(() => Parsing.ParseCurrencyCode(input));
     }
 
     [Theory]

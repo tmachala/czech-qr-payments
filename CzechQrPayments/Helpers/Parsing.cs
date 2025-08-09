@@ -15,7 +15,7 @@ internal static class Parsing
         return value;
     }
 
-    public static string ParseCurrency(string str)
+    public static string ParseCurrencyCode(string str)
     {
         if (str.Length != 3)
             throw new FormatException($"Invalid currency format: {str}");

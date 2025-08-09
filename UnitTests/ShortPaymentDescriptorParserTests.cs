@@ -120,4 +120,20 @@ public class ShortPaymentDescriptorParserTests
         
         Assert.Equal("* Příliš žluťoučký kůň úpěl ďábelské ódy *", result.Message);
     }
+
+    [Fact]
+    public void ShortPaymentDescriptorParser_GivenDuplicateAttrKeyThrows()
+    {
+        var input = "SPD*1.0*ACC:CZ3301000000000002970297*MSG:msg1*MSG:msg2";
+
+        Assert.Throws<FormatException>(() => ShortPaymentDescriptorParser.Parse(input));
+    }
+    
+    [Fact]
+    public void ShortPaymentDescriptorParser_GivenNoAccThrows()
+    {
+        var input = "SPD*1.0*MSG:msg";
+
+        Assert.Throws<FormatException>(() => ShortPaymentDescriptorParser.Parse(input));
+    }
 }

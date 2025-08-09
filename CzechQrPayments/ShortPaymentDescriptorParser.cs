@@ -25,12 +25,17 @@ public static partial class ShortPaymentDescriptorParser
 
             // Make sure that every key is present just once.
             if (!attrs.TryAdd(key, value))
-                throw new InvalidOperationException($"Duplicate key found: {key}");
+                throw new FormatException($"Duplicate key found: {key}");
+        }
+
+        if (!attrs.TryGetValue("ACC", out var acc))
+        {
+            throw new FormatException("The mandatory 'ACC' attribute is missing!");
         }
         
         var descriptor = new ShortPaymentDescriptor
         {
-            Counterparty = CounterpartyParser.Parse(attrs["ACC"]),
+            Counterparty = CounterpartyParser.Parse(acc),
         };
         
         if (attrs.TryGetValue("ALT-ACC", out var altAcc))
@@ -45,7 +50,7 @@ public static partial class ShortPaymentDescriptorParser
         
         if (attrs.TryGetValue("CC", out var cur))
         {
-            descriptor.Currency = Parsing.ParseCurrency(cur);
+            descriptor.Currency = Parsing.ParseCurrencyCode(cur);
         }
 
         if (attrs.TryGetValue("RF", out var rf))
