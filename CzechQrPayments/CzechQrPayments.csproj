@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         
         <PackageId>CzechQrPayments</PackageId>
-        <Version>1.0.1</Version>
+        <Version>1.0.2</Version>
         <Authors>Tomáš Machala</Authors>
         <Description>A .NET library for parsing Czech payment order data, typically found in QR codes on invoices and payment slips.</Description>
         <PackageTags>qr;czech;payments</PackageTags>
