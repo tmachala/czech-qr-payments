@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
+using CzechQrPayments.Helpers;
 
 namespace CzechQrPayments;
 
@@ -38,19 +39,19 @@ public static partial class ShortPaymentDescriptorParser
             descriptor.AlternativeCounterparties.AddRange(altAcc.Split(',').Select(CounterpartyParser.Parse));
         }
         
-        if (attrs.TryGetValue("AMT", out var amt))
+        if (attrs.TryGetValue("AM", out var am))
         {
-            descriptor.Amount = Helpers.Parsing.ParseDecimal(amt);
+            descriptor.Amount = Parsing.ParseDecimal(am);
         }
         
         if (attrs.TryGetValue("CC", out var cur))
         {
-            descriptor.Currency = Helpers.Parsing.ParseCurrency(cur);
+            descriptor.Currency = Parsing.ParseCurrency(cur);
         }
 
         if (attrs.TryGetValue("RF", out var rf))
         {
-            descriptor.CreditorReference = Helpers.Parsing.ParseNumericString(rf);
+            descriptor.CreditorReference = Parsing.ParseNumericString(rf);
         }
         
         if (attrs.TryGetValue("RN", out var rn))
@@ -60,12 +61,12 @@ public static partial class ShortPaymentDescriptorParser
         
         if (attrs.TryGetValue("DT", out var dt))
         {
-            descriptor.DueDate = Helpers.Parsing.ParseDate(dt);
+            descriptor.DueDate = Parsing.ParseDate(dt);
         }
         
         if (attrs.TryGetValue("PT", out var pt))
         {
-            descriptor.PaymentType = Helpers.Parsing.ParsePaymentType(pt);
+            descriptor.PaymentType = Parsing.ParsePaymentType(pt);
         }
         
         if (attrs.TryGetValue("MSG", out var msg))
@@ -75,7 +76,7 @@ public static partial class ShortPaymentDescriptorParser
         
         if (attrs.TryGetValue("NT", out var nt))
         {
-            descriptor.NotificationType = Helpers.Parsing.ParseNotificationType(nt);
+            descriptor.NotificationType = Parsing.ParseNotificationType(nt);
         }
         
         if (attrs.TryGetValue("NTA", out var nta))
@@ -85,37 +86,37 @@ public static partial class ShortPaymentDescriptorParser
         
         if (attrs.TryGetValue("DL", out var dl))
         {
-            descriptor.StandingOrderExpiryDate = Helpers.Parsing.ParseDate(dl);
+            descriptor.StandingOrderExpiryDate = Parsing.ParseDate(dl);
         }
         
         if (attrs.TryGetValue("FRQ", out var frq))
         {
-            descriptor.PaymentFrequency = Helpers.Parsing.ParsePaymentFrequency(frq);
+            descriptor.PaymentFrequency = Parsing.ParsePaymentFrequency(frq);
         }
         
         if (attrs.TryGetValue("DH", out var dh))
         {
-            descriptor.KeepExecutingAfterDeath = Helpers.Parsing.ParseBoolean(dh);
+            descriptor.KeepExecutingAfterDeath = Parsing.ParseBoolean(dh);
         }
         
         if (attrs.TryGetValue("X-PER", out var xper))
         {
-            descriptor.RetryCountLimit = Helpers.Parsing.ParseNumber(xper);
+            descriptor.RetryCountLimit = Parsing.ParseNumber(xper);
         }
         
         if (attrs.TryGetValue("X-VS", out var xvs))
         {
-            descriptor.VariableSymbol = Helpers.Parsing.ParseNumericString(xvs);
+            descriptor.VariableSymbol = Parsing.ParseNumericString(xvs);
         }
         
         if (attrs.TryGetValue("X-SS", out var xss))
         {
-            descriptor.SpecificSymbol = Helpers.Parsing.ParseNumericString(xss);
+            descriptor.SpecificSymbol = Parsing.ParseNumericString(xss);
         }
         
         if (attrs.TryGetValue("X-KS", out var xks))
         {
-            descriptor.ConstantSymbol = Helpers.Parsing.ParseNumericString(xks);
+            descriptor.ConstantSymbol = Parsing.ParseNumericString(xks);
         }
         
         if (attrs.TryGetValue("X-ID", out var xid))
@@ -138,6 +139,9 @@ public static partial class ShortPaymentDescriptorParser
 
     private static void EnsureSupportedHeader(string spdString)
     {
+        if (spdString.StartsWith(ExpectedHeader))
+            return;
+        
         // If it's a collection, not a payment descriptor ('Trvalý příkaz k úhradě' in Czech)
         if (spdString.StartsWith("SCD*"))
         {

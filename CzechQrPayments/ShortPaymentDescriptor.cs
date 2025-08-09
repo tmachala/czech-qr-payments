@@ -91,7 +91,7 @@ public class ShortPaymentDescriptor
     /// If the FRQ field is not empty, the DL field is interpreted as the expiry date of the standing order.
     /// </summary>
     /// <remarks>Field name: DL</remarks>
-    public DateOnly StandingOrderExpiryDate { get; set; }
+    public DateOnly? StandingOrderExpiryDate { get; set; }
 
     /// <summary>
     /// The payment frequency. If the FRQ field is not empty, the entire SPAYD string is interpreted as an instruction

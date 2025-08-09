@@ -6,7 +6,12 @@ internal static class Parsing
 {
     public static decimal ParseDecimal(string str)
     {
-        return decimal.Parse(str, CultureInfo.InvariantCulture);
+        var value = decimal.Parse(str, CultureInfo.InvariantCulture);
+        
+        if (value < 0)
+            throw new FormatException("Only non-negative numbers are allowed!");
+        
+        return value;
     }
 
     public static string ParseCurrency(string str)
