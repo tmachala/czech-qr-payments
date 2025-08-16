@@ -9,29 +9,29 @@ public class CzechBankAccountTests
     [InlineData(" 00 0 ")]
     public void CzechBankAccount_Ctor_EmptyPrefixStoredAsNull(string? prefix)
     {
-        var actual = new CzechBankAccount(prefix, "", "");
+        var actual = new CzechBankAccount(prefix, "1234567890", "0800");
         Assert.Null(actual.Prefix);
     }
 
     [Fact]
     public void CzechBankAccount_Ctor_StripsLeadingZerosFromPrefixAndAccountNumberButNotBankCode()
     {
-        var actual = new CzechBankAccount("000123", "04567890123", "0800");
+        var actual = new CzechBankAccount("000123", "0456789012", "0800");
         
         Assert.Equal("123", actual.Prefix);
-        Assert.Equal("4567890123", actual.AccountNumber);
+        Assert.Equal("456789012", actual.AccountNumber);
         Assert.Equal("0800", actual.BankCode);
     }
 
     [Theory]
-    [InlineData("000123-04567890123/0800")]
-    [InlineData(" 0  00  123 -   045 6 7 8 9 0  1 2 3 / 0  8 00  ")]
+    [InlineData("000123-0456789012/0800")]
+    [InlineData(" 0  00  123 -   045 6 7 8 9 0  1 2 / 0  8 00  ")]
     public void CzechBankAccount_Ctor_ParsesFullAccountNumberCorrectly(string fullAccountNumber)
     {
         var actual = new CzechBankAccount(fullAccountNumber);
         
         Assert.Equal("123", actual.Prefix);
-        Assert.Equal("4567890123", actual.AccountNumber);
+        Assert.Equal("456789012", actual.AccountNumber);
         Assert.Equal("0800", actual.BankCode);
     }
     
@@ -51,11 +51,10 @@ public class CzechBankAccountTests
     }
 
     [Theory]
-    [InlineData("0000123-04567890123/0800")]
+    [InlineData("0000123-0456789012/0800")]
     [InlineData("000123-004567890123/0800")]
-    [InlineData("000123-04567890123/00800")]
-    [InlineData("000123-0456789012/0800")]
-    [InlineData("000123-04567890123/800")]
+    [InlineData("000123-0456789012/08000")]
+    [InlineData("000123-0456789012/800")]
     public void CzechBankAccount_Ctor_ThrowsOnInvalidSegmentLength(string fullAccountNumber)
     {
         Assert.Throws<FormatException>(() => new CzechBankAccount(fullAccountNumber));
@@ -76,7 +75,7 @@ public class CzechBankAccountTests
     [Fact]
     public void CzechBankAccount_ToString_ReturnsFormattedBankAccount()
     {
-        var sut = new CzechBankAccount("000123-04567890123/0800");
-        Assert.Equal("123-4567890123/0800", sut.ToString());
+        var sut = new CzechBankAccount("123-456789012/0800");
+        Assert.Equal("123-456789012/0800", sut.ToString());
     }
 }

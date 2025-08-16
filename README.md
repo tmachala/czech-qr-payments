@@ -53,6 +53,11 @@ Console.WriteLine(bankAccount)  // 19-2000145399/0800
 
 * **Bank-specific differences –** Each Czech bank may have slight deviations from the specification, so interoperability is not guaranteed.
 
+## Release Notes
+
+* **Version 1.1.0 -** Added `CzechBankAccount` with an IBAN parsing feature. Both IBAN and Czech bank accounts contain checksums that the library doesn't validate so far.
+* **Version 1.0.2 -** The first version. 
+
 ## Contributing
 
 Contributions are welcome!

@@ -5,5 +5,6 @@
     &lt;TestId&gt;xUnit::EB2D67D3-0979-473A-A9B3-F334F27B353D::net9.0::CzechQrPayments.UnitTests.CounterpartyParserTests&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::EB2D67D3-0979-473A-A9B3-F334F27B353D::net9.0::CzechQrPayments.UnitTests.ParsingTests&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::EB2D67D3-0979-473A-A9B3-F334F27B353D::net9.0::CzechQrPayments.UnitTests.ShortPaymentDescriptorParserTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::EB2D67D3-0979-473A-A9B3-F334F27B353D::net9.0::CzechQrPayments.UnitTests.CzechBankAccountTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
