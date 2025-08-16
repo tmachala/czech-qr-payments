@@ -52,97 +52,97 @@ public static partial class ShortPaymentDescriptorParser
         
         if (attrs.TryGetValue("AM", out var am))
         {
-            descriptor.Amount = Parsing.ParseDecimal(am);
+            descriptor.Amount = SpaydParsing.ParseDecimal(am);
         }
         
         if (attrs.TryGetValue("CC", out var cur))
         {
-            descriptor.Currency = Parsing.ParseCurrencyCode(cur);
+            descriptor.Currency = SpaydParsing.ParseCurrencyCode(cur);
         }
 
         if (attrs.TryGetValue("RF", out var rf))
         {
-            descriptor.CreditorReference = Parsing.ParseNumericString(rf);
+            descriptor.CreditorReference = SpaydParsing.ParseNumericString(rf);
         }
         
         if (attrs.TryGetValue("RN", out var rn))
         {
-            descriptor.CreditorName = Parsing.ParseString(rn);
+            descriptor.CreditorName = SpaydParsing.ParseString(rn);
         }
         
         if (attrs.TryGetValue("DT", out var dt))
         {
-            descriptor.DueDate = Parsing.ParseDate(dt);
+            descriptor.DueDate = SpaydParsing.ParseDate(dt);
         }
         
         if (attrs.TryGetValue("PT", out var pt))
         {
-            descriptor.PaymentType = Parsing.ParsePaymentType(pt);
+            descriptor.PaymentType = SpaydParsing.ParsePaymentType(pt);
         }
         
         if (attrs.TryGetValue("MSG", out var msg))
         {
-            descriptor.Message = Parsing.ParseString(msg);
+            descriptor.Message = SpaydParsing.ParseString(msg);
         }
         
         if (attrs.TryGetValue("NT", out var nt))
         {
-            descriptor.NotificationType = Parsing.ParseNotificationType(nt);
+            descriptor.NotificationType = SpaydParsing.ParseNotificationType(nt);
         }
         
         if (attrs.TryGetValue("NTA", out var nta))
         {
-            descriptor.NotificationAddress = Parsing.ParseString(nta);
+            descriptor.NotificationAddress = SpaydParsing.ParseString(nta);
         }
         
         if (attrs.TryGetValue("DL", out var dl))
         {
-            descriptor.StandingOrderExpiryDate = Parsing.ParseDate(dl);
+            descriptor.StandingOrderExpiryDate = SpaydParsing.ParseDate(dl);
         }
         
         if (attrs.TryGetValue("FRQ", out var frq))
         {
-            descriptor.PaymentFrequency = Parsing.ParsePaymentFrequency(frq);
+            descriptor.PaymentFrequency = SpaydParsing.ParsePaymentFrequency(frq);
         }
         
         if (attrs.TryGetValue("DH", out var dh))
         {
-            descriptor.KeepExecutingAfterDeath = Parsing.ParseBoolean(dh);
+            descriptor.KeepExecutingAfterDeath = SpaydParsing.ParseBoolean(dh);
         }
         
         if (attrs.TryGetValue("X-PER", out var xper))
         {
-            descriptor.RetryCountLimit = Parsing.ParseNumber(xper);
+            descriptor.RetryCountLimit = SpaydParsing.ParseNumber(xper);
         }
         
         if (attrs.TryGetValue("X-VS", out var xvs))
         {
-            descriptor.VariableSymbol = Parsing.ParseNumericString(xvs);
+            descriptor.VariableSymbol = SpaydParsing.ParseNumericString(xvs);
         }
         
         if (attrs.TryGetValue("X-SS", out var xss))
         {
-            descriptor.SpecificSymbol = Parsing.ParseNumericString(xss);
+            descriptor.SpecificSymbol = SpaydParsing.ParseNumericString(xss);
         }
         
         if (attrs.TryGetValue("X-KS", out var xks))
         {
-            descriptor.ConstantSymbol = Parsing.ParseNumericString(xks);
+            descriptor.ConstantSymbol = SpaydParsing.ParseNumericString(xks);
         }
         
         if (attrs.TryGetValue("X-ID", out var xid))
         {
-            descriptor.PayerInternalPaymentIdentifier = Parsing.ParseString(xid);
+            descriptor.PayerInternalPaymentIdentifier = SpaydParsing.ParseString(xid);
         }
         
         if (attrs.TryGetValue("X-URL", out var xurl))
         {
-            descriptor.Url = Parsing.ParseString(xurl);
+            descriptor.Url = SpaydParsing.ParseString(xurl);
         }
         
         if (attrs.TryGetValue("X-SELF", out var xself))
         {
-            descriptor.NoteToSelf = Parsing.ParseString(xself);
+            descriptor.NoteToSelf = SpaydParsing.ParseString(xself);
         }
 
         return descriptor;

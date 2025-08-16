@@ -3,7 +3,7 @@ using System.Net;
 
 namespace CzechQrPayments.Helpers;
 
-internal static class Parsing
+internal static class SpaydParsing
 {
     public static decimal ParseDecimal(string str)
     {

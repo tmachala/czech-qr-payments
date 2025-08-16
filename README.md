@@ -8,9 +8,10 @@ Implementation follows the Czech Banking Association’s “Format for Sharing P
 
 ## Supported .NET Versions
 
-|        | MacOS | Linux | Windows |
-| ------ | :---: | :---: | :-----: |
-| .NET 9 | ✅    | ✅     | ✅      |
+|        | Architecture | MacOS | Linux | Windows |
+|--------|--------------|:-----:|:-----:|:-------:|
+| .NET 9 | ARM          |   ✅   |   ✅   |    ✅    |
+| .NET 9 | x64          | ✅     | ✅     |  ✅      |
 
 ## Installation
 
@@ -22,6 +23,8 @@ dotnet add package CzechQrPayments
 
 ## Usage
 
+### Parsing Payment QR Codes (SPAYD)
+
 ```cs
 using CzechQrPayments;
 
@@ -31,6 +34,15 @@ var spd = ShortPaymentDescriptor.Parse(qrCode);
 Console.WriteLine(spd.Counterparty.Iban);  // CZ3301000000000002970297
 Console.WriteLine(spd.Amount);             // 1000
 Console.WriteLine(spd.Currency);           // CZK
+```
+
+### Converting IBAN to Czech Bank Account
+
+```cs
+var iban = "CZ6508000000192000145399";
+var bankAccount = CzechBankAccount.FromIban(iban);
+
+Console.WriteLine(bankAccount)  // 19-2000145399/0800
 ```
 
 ## Limitations
